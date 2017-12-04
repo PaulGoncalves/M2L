@@ -1,0 +1,48 @@
+.form_login {
+    background-color: rgba(0, 148, 119, 0.65);
+    padding-bottom: 3%;
+    padding-top: 3%;
+    border-radius: 5px;
+    box-shadow: 1px 2px 8px black;
+    margin-top: 20%;
+}
+
+.titre_login {
+    border-bottom: 1px solid black;
+    padding-bottom: 5%;
+    font-weight: bold;
+}
+
+.text_login {
+    font-size:20px;
+}
+
+.bouton_login {
+    width: 100%;
+    border-radius: 0;
+    background-color: #1abc9c;
+    border: 1px solid #21a187;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bouton_login:hover {
+    width: 100%;
+    border-radius: 0;
+    background-color: grey;
+    border: 1px solid grey;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 1s;
+}
+
+.lienMdpOublie {
+    color: white;
+    text-decoration: none;
+}
+
+.lienMdpOublie:hover {
+    color: black;
+    text-decoration: none;
+}
