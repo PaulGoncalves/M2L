@@ -1,9 +1,13 @@
-<?php 
+<?php
+include 'Models/connectBdd.php';
+include 'Controllers/functionControllers.php';
+include 'Models/functionModels.php';
+
 session_start();
 define('BASE_URL',dirname($_SERVER['SCRIPT_NAME']));
 
 
-if(!isset($_SESSION['id_u'])) {
+if(!isset($_SESSION['id_s'])) {
 
     $_GET['p'] = 'login';
     include 'controllers/'.$_GET['p'].'.php';

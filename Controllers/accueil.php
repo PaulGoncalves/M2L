@@ -1,11 +1,20 @@
 <?php
+
 $_GET['p'] = 'accueil';
 
-$formation = get_last_formion{0,5};
+$title = 'Accueil - M2L Formation';
 
-foreach($formation as $k => $v) {
-    $formations[$k]['contenu'] = str_sub
+if($_SESSION['lvl'] == 1 ) {
+    
+    require 'Views/accueil-salarie.php';
+    
+} elseif($_SESSION['lvl'] == 2) {
+    
+    require 'Views/accueil.php';
+    
+}elseif($_SESSION['lvl'] == 3) {
+    
 }
 
-require 'Views/accueil.php';
+
 ?>
