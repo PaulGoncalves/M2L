@@ -1,4 +1,14 @@
 <div class="row">
+    <ol class="breadcrumb">
+        <li><a href="<?= BASE_URL; ?>">
+            <em class="fa fa-home"></em>
+            </a></li>
+        <li><a href="<?= BASE_URL; ?>">Dashboard</a></li>
+        <li class="active">Gestion formation</li>
+    </ol>
+</div> <!-- ****************** BARRE AVEC LIENS ********************** -->
+
+<div class="row">
     <div class="col-md-offset-1 col-md-10">
         <br />
         <div class="panel panel-default articles">
@@ -32,9 +42,8 @@
                         <th>Email</th>
                         <th>Niveau</th>
                     </tr>
-                   <?php echo tableau_liste_salarie_chef($_SESSION['id_s']); ?>
+                    <?php echo tableau_liste_salarie_chef($_SESSION['id_s']); ?>
                 </table>
-
             </div>
         </div>
     </div>

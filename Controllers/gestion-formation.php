@@ -2,6 +2,8 @@
 
 $_GET['p'] = 'Gestion-Formation';
 
+$title = 'Gestion formation - M2L Formation';
+
 if(isset($_POST['confirmFormation'])) {
     
     updateLibelle($_POST['id_t'], 'Acceptée');

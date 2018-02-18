@@ -1,4 +1,15 @@
 <div class="row">
+    <ol class="breadcrumb">
+        <li><a href="<?= BASE_URL; ?>">
+            <em class="fa fa-home"></em>
+            </a></li>
+        <li><a href="<?= BASE_URL; ?>">Dashboard</a></li>
+        <li class="active">Formations</li>
+    </ol>
+</div> <!-- ****************** BARRE AVEC LIENS ********************** -->
+
+
+<div class="row">
     <div class="col-md-offset-1 col-md-10">
         <br />
         <div class="panel panel-default articles">

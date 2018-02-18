@@ -10,10 +10,11 @@ if($_SESSION['lvl'] == 1 ) {
     
 } elseif($_SESSION['lvl'] == 2) {
     
-    require 'Views/accueil.php';
+    require 'Views/accueil-chef.php';
     
 }elseif($_SESSION['lvl'] == 3) {
     
+    require 'Views/accueil-admin.php';
 }
 
 

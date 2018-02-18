@@ -471,4 +471,23 @@ function tableau_chef_formation_attente($id_chef) {
 
     return $contenu;
 }
+
+function compte_salarie_a_charge($id_chef) {
+
+    $req = recup_salarie_selon_chef($id_chef);
+
+    $resultat = $req->rowCount();
+
+    return $resultat;
+
+}
+
+function compte_formation() {
+
+    $req = recup_formation();
+
+    $resultat = $req->rowCount();
+    
+    return $resultat;
+}
 ?>
