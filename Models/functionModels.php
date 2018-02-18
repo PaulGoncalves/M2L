@@ -66,7 +66,6 @@ function recup_formation_salarie() {
     return $req;
 }
 
-
 function recup_formation_idf($id_f) {
     global $bdd;
 
@@ -74,6 +73,7 @@ function recup_formation_idf($id_f) {
 
     return $req;
 }
+
 function insert_prestataire($adresse, $nom, $tel, $mail) {
     global $bdd;
 
@@ -219,6 +219,23 @@ function delete_formation($id_f) {
     global $bdd;
     
     $req = $bdd->prepare('DELETE FROM formation WHERE id_f = '.$id_f);
+    $req->execute();
+    
+}
+
+function recup_tableau_chef_attente($id_chef) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef);
+    
+    return $req;
+}
+
+function updateLibelle($id_t, $libelle) {
+    global $bdd;
+    
+    $req = $bdd->prepare('UPDATE type_formation SET libelle = :libelle WHERE id_t ='.$id_t);
+    $req->bindValue(':libelle', $libelle);
     $req->execute();
     
 }

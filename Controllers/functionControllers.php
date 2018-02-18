@@ -42,9 +42,10 @@ function menu_lvl($lvl, $page) {
 
     } elseif($lvl == 2) {
 
-        $contenu .= '<li class="active"><a href="index.html"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-                <li><a href="<?= BASE_URL; ?>/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>
-                <li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
+        if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
+        if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
+        if($page == 'Gestion-Formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Gestion-Formation"><em class="fa fa-user">&nbsp;</em> Gestion Formation salarié</a></li>';
+        $contenu .= '<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
                 <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
                 <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
                 <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
@@ -383,6 +384,44 @@ function tableau_liste_salarie() {
 
     }
 
+    $contenu .= '';
+
+    return $contenu;
+}
+
+function tableau_chef_formation_attente($id_chef) {
+
+    $contenu = '';
+
+    $req = recup_tableau_chef_attente($id_chef);
+
+    if($resultat = $req->rowCount()) {
+
+        while($resultat = $req->fetch()) {
+
+            $contenu .= '<tr>
+                        <td>'.$resultat['titre'].'</td>
+                        <td>'.date("d/m/Y", strtotime($resultat['date_debut'])).'</td>
+                        <td>'.$resultat['nb_jour'].'</td>
+                        <td>'.$resultat['nb_place'].'</td>
+                        <td>'.$resultat['nom'].' '.$resultat['prenom'].'</td>
+                        <td><span class="indicator label-attente"></span> '.$resultat['libelle'].'</td>
+                        <td align="center">
+                        <form method="POST">
+                            <input type="hidden" name="id_t" value="'.$resultat['id_t'].'"/>
+                            <button onclick="return(confirm(\'Êtes-vous sûr de vouloir confirmer la formation '.$resultat['titre'].' pour '.$resultat['nom'].' '.$resultat['prenom'].'?\'));" type="submit" name="confirmFormation" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                            <button onclick="return(confirm(\'Êtes-vous sûr de vouloir refuser la formation '.$resultat['titre'].' pour '.$resultat['nom'].' '.$resultat['prenom'].'?\'));" type="submit" name="refuseFormation" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                        </form>
+                    </tr>';
+
+        }
+
+    } else {
+        
+    $contenu .= '<tr><td colspan="6">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
+        
+    }
+    
     $contenu .= '';
 
     return $contenu;
