@@ -215,6 +215,15 @@ function recup_tout_salarie() {
     return $req;
 }
 
+function recup_salarie_selon_chef($id_chef) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef);
+    
+    return $req;
+    
+}
+
 function delete_formation($id_f) {
     global $bdd;
     

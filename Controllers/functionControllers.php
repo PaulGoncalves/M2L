@@ -369,17 +369,62 @@ function tableau_liste_salarie() {
 
     $contenu = '';
 
-    while($resultat = $req->fetch()) {
+    if($resultat = $req->rowCount()) {
 
-        $contenu .= '<tr>
+        while($resultat = $req->fetch()) {
+
+            $contenu .= '<tr>
                         <td>'.$resultat['nom'].'</td>
                         <td>'.$resultat['prenom'].'</td>
                         <td>'.$resultat['email'].'</td>
                         <td>'.$resultat['credits'].'</td>
                         <td>';
-        if($resultat['lvl'] == 1) { $contenu .= 'Salarié'; } elseif($resultat['lvl'] == 2) { $contenu .= 'Chef'; } elseif($resultat['lvl'] == 3) { $contenu .= 'Administrateur'; }
+            if($resultat['lvl'] == 1) { $contenu .= 'Salarié'; } elseif($resultat['lvl'] == 2) { $contenu .= 'Chef'; } elseif($resultat['lvl'] == 3) { $contenu .= 'Administrateur'; }
 
-        $contenu .= '</td>
+            $contenu .= '</td>
+                    </tr>';
+
+        }
+
+    } else {
+
+        $contenu .= '<tr>
+                        <td colspan="5">Il n\'y a aucune demande de formation en cours</td>
+                    </tr>';
+
+    }
+
+    $contenu .= '';
+
+    return $contenu;
+}
+
+function tableau_liste_salarie_chef($id_chef) {
+
+    $req = recup_salarie_selon_chef($id_chef);
+
+    $contenu = '';
+
+    if($resultat = $req->rowCount()) {
+
+        while($resultat = $req->fetch()) {
+
+            $contenu .= '<tr>
+                        <td>'.$resultat['nom'].' '.$resultat['prenom'].'</td>
+                        <td>'.$resultat['credits'].'</td>
+                        <td>'.$resultat['email'].'</td>
+                        <td>';
+            if($resultat['lvl'] == 1) { $contenu .= 'Salarié'; } elseif($resultat['lvl'] == 2) { $contenu .= 'Chef'; } elseif($resultat['lvl'] == 3) { $contenu .= 'Administrateur'; }
+
+            $contenu .= '</td>
+                    </tr>';
+
+        }
+
+    } else {
+
+        $contenu .= '<tr>
+                        <td colspan="5">Vous n\'avez pas de salarié à votre charge</td>
                     </tr>';
 
     }
@@ -417,11 +462,11 @@ function tableau_chef_formation_attente($id_chef) {
         }
 
     } else {
-        
-    $contenu .= '<tr><td colspan="6">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
-        
+
+        $contenu .= '<tr><td colspan="6">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
+
     }
-    
+
     $contenu .= '';
 
     return $contenu;
