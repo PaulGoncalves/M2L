@@ -19,9 +19,9 @@ function menu_lvl($lvl, $page) {
 
     if($lvl == 1) {
 
-        $contenu .= '<li class="active"><a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-                <li><a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>
-                <li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
+        if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
+        if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
+        $contenu .= '<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
                 <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
                 <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
                 <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
@@ -211,11 +211,11 @@ function affich_formation_salarie() {
         }
 
     } else {
-        
+
         $contenu .= '<tr>
                         <td colspan="5" align="center">Il n\'y a aucune formation disponible pour le moment</td>
                      </tr>';
-        
+
     }
 
     $contenu .= '';
