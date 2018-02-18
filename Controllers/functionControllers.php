@@ -186,17 +186,19 @@ function affich_formation_salarie() {
 
     $contenu = '';
 
-    while($resultatForm = $req->fetch()) {
+    if($resultatForm = $req->rowCount() > 0) {
 
-        $reqPrest = recup_prestataire_idp($resultatForm['id_p']);
+        while($resultatForm = $req->fetch()) {
 
-        while($resultatPrest = $reqPrest->fetch()) {
+            $reqPrest = recup_prestataire_idp($resultatForm['id_p']);
 
-            $dateOriginal = $resultatForm['date_debut'];
-            $newDate = date("d/m/Y", strtotime($dateOriginal));
-            $newDateUrl = date("d-m-Y", strtotime($dateOriginal));
+            while($resultatPrest = $reqPrest->fetch()) {
 
-            $contenu .= '<tr>
+                $dateOriginal = $resultatForm['date_debut'];
+                $newDate = date("d/m/Y", strtotime($dateOriginal));
+                $newDateUrl = date("d-m-Y", strtotime($dateOriginal));
+
+                $contenu .= '<tr>
                         <td>'.$resultatForm['titre'].'</td>
                         <td>'.$newDate.'</td>
                         <td>'.$resultatForm['nb_jour'].'</td>
@@ -204,8 +206,16 @@ function affich_formation_salarie() {
                         <td><a href="'.BASE_URL.'/details-formation/'.$resultatForm['titre'].'/'.$newDateUrl.'" class="btn btn-primary">Afficher les détails</a></td>
                      </tr>';
 
+            }
+
         }
 
+    } else {
+        
+        $contenu .= '<tr>
+                        <td colspan="5" align="center">Il n\'y a aucune formation disponible pour le moment</td>
+                     </tr>';
+        
     }
 
     $contenu .= '';
@@ -367,7 +377,7 @@ function tableau_liste_salarie() {
                         <td>'.$resultat['credits'].'</td>
                         <td>';
         if($resultat['lvl'] == 1) { $contenu .= 'Salarié'; } elseif($resultat['lvl'] == 2) { $contenu .= 'Chef'; } elseif($resultat['lvl'] == 3) { $contenu .= 'Administrateur'; }
-        
+
         $contenu .= '</td>
                     </tr>';
 
