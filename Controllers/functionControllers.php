@@ -21,8 +21,8 @@ function menu_lvl($lvl, $page) {
 
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
         if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
-        $contenu .= '<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-                <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
+        if($page == 'Historique-formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Historique-formation"><em class="fa fa-bar-chart">&nbsp;</em> Historique de formation</a></li>';
+        $contenu .= '<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
                 <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
                 <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
                     <em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -515,5 +515,49 @@ function MAJ_historique_Formation() {
     }
 
 
+}
+
+function tableau_historique_salarie($id_s) {
+
+    $req = recup_historique_salarie($id_s);
+
+    $contenu = '';
+
+    while($resultat = $req->fetch()) {
+
+        $contenu .= '<tr>
+                        <td>'.$resultat['titre'].'</td>
+                        <td>'.$resultat['date_debut'].'</td>
+                        <td>'.$resultat['nb_jour'].'</td>
+                        <td>';
+                        if($resultat['libelle'] == "En attente") {
+                            
+                            $contenu .= '<span class="indicator label-attente"></span> En attente';
+                            
+                        }elseif($resultat['libelle'] == "Acceptée") {
+                            
+                            $contenu .= '<span class="indicator label-success"></span> Acceptée';
+                        }elseif($resultat['libelle'] == "Effectuée") {
+                            
+                            $contenu .= '<span class="indicator label-effectue"></span> Effectuée';
+                        }
+        $contenu .= '</td>
+                    <td>';
+                    if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Validée') {
+                        
+                        $contenu .= 'La facture n\'est pas encore disponible';
+                        
+                    } else {
+                        
+                        $contenu .= '<a href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
+                    }
+        $contenu .= '</td>
+                    </tr>';
+
+    }
+
+    $contenu .= '';
+
+    return $contenu;
 }
 ?>

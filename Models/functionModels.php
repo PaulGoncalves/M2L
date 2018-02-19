@@ -266,4 +266,13 @@ function recup_formation_acceptée() {
     return $req;
 }
 
+function recup_historique_salarie($id_s) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre, f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, s.nom, s.prenom, s.credits FROM type_formation t, formation f, salarie s WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND s.id_s = '.$id_s.' ORDER BY libelle DESC');
+    
+    return $req;
+    
+}
+
 ?>
