@@ -454,6 +454,7 @@ function tableau_chef_formation_attente($id_chef) {
                         <td align="center">
                         <form method="POST">
                             <input type="hidden" name="id_t" value="'.$resultat['id_t'].'"/>
+                            <input type="hidden" name="id_f" value="'.$resultat['id_f'].'"/>
                             <button onclick="return(confirm(\'Êtes-vous sûr de vouloir confirmer la formation '.$resultat['titre'].' pour '.$resultat['nom'].' '.$resultat['prenom'].'?\'));" type="submit" name="confirmFormation" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                             <button onclick="return(confirm(\'Êtes-vous sûr de vouloir refuser la formation '.$resultat['titre'].' pour '.$resultat['nom'].' '.$resultat['prenom'].'?\'));" type="submit" name="refuseFormation" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
                         </form>
