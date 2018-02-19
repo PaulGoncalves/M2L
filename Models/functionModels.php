@@ -249,4 +249,21 @@ function updateLibelle($id_t, $libelle) {
     
 }
 
+function updateLibelleAcceptée($libelle) {
+    global $bdd;
+    
+    $req = $bdd->prepare('UPDATE type_formation SET libelle = :libelle WHERE libelle = "Acceptée"');
+    $req->bindValue(':libelle', $libelle);
+    $req->execute();
+    
+}
+
+function recup_formation_acceptée() {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT f.nb_jour, f.date_debut, f.id_f, t.libelle, t.id_f FROM formation f, type_formation t WHERE f.id_f = t.id_f AND libelle = "Acceptée"');
+    
+    return $req;
+}
+
 ?>

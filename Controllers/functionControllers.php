@@ -488,7 +488,32 @@ function compte_formation() {
     $req = recup_formation();
 
     $resultat = $req->rowCount();
-    
+
     return $resultat;
+}
+
+function MAJ_historique_Formation() {
+
+    $req = recup_formation_acceptée();
+    $resultat = $req->fetch();
+
+    $date_actuelle = date('d-m-Y');
+
+    $cout_jour = $resultat['nb_jour'];
+
+    $date_formation = $resultat['date_debut'];
+    $date_plus_jours = date('d-m-Y', strtotime($date_formation.' + '.$cout_jour.' days'));
+
+    if($resultat['libelle'] == "Acceptée") {
+
+        if($date_plus_jours < $date_actuelle) {
+
+            $libelle = "Effectuée";
+
+            $req = updateLibelleAcceptée($libelle);
+        }
+    }
+
+
 }
 ?>
