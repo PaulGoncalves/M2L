@@ -490,7 +490,7 @@ function tableau_chef_formation_attente($id_chef) {
 
     } else {
 
-        $contenu .= '<tr><td colspan="6">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
+        $contenu .= '<tr><td colspan="6" align="center">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
 
     }
 
@@ -575,7 +575,7 @@ function tableau_historique_salarie($id_s) {
 
         } else {
 
-            $contenu .= '<a href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
+            $contenu .= '<a target="_banck" href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
         }
         $contenu .= '</td>
                     </tr>';

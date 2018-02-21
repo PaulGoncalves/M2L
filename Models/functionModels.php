@@ -12,9 +12,9 @@ function get_user($email, $mdp) {
 
 function recup_salarie($id_s) {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT * FROM salarie WHERE id_s = '.$id_s);
-    
+
     return $req;
 }
 
@@ -74,6 +74,19 @@ function recup_formation_idf($id_f) {
     return $req;
 }
 
+function recup_pour_facture_pdf($id_s, $id_f) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre,
+                        f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, f.id_p, s.nom, s.prenom, s.credits, a.numero, a.ville, a.rue, a.code_postal, p.id_p, p.nom p_nom, p.mail, p.tel
+                        FROM type_formation t, formation f, salarie s, adresse a, prestataire p
+                        WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND f.id_p = p.id_p AND a.id_a = p.id_p
+                        AND s.id_s = '.$id_s.' AND f.id_f = '.$id_f);
+    
+    return $req;
+
+}
+
 function insert_prestataire($adresse, $nom, $tel, $mail) {
     global $bdd;
 
@@ -121,7 +134,7 @@ function insert_formation($titre, $nb_jour, $dateDeb, $nb_place, $prestataire, $
 
 function insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef) {
     global $bdd;
-    
+
     $req = $bdd->prepare('INSERT INTO salarie(nom, prenom, email, mdp, lvl, credits, id_chef) VALUES(:nom, :prenom, :email, :mdp, :lvl, :credits, :id_chef)');
     $req->bindValue(':nom', $nom);
     $req->bindValue('prenom', $prenom);
@@ -187,92 +200,92 @@ function affich_formation_attente($id_s) {
                         ORDER BY libelle DESC');
 
     return $reqhistorique;
-    
+
 }
 
 function update_credit_salarie($id_s, $credits) {
     global $bdd;
-    
+
     $req = $bdd->prepare('UPDATE salarie SET credits = :credits WHERE id_s = '.$id_s);
     $req->bindValue(':credits', $credits);
     $req->execute();
-    
+
 }
 
 function recup_salarie_chef() {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT * FROM salarie WHERE lvl = 2');
-    
+
     return $req;
 }
 
 function recup_tout_salarie() {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT * FROM salarie');
-    
+
     return $req;
 }
 
 function recup_salarie_selon_chef($id_chef) {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef);
-    
+
     return $req;
-    
+
 }
 
 function delete_formation($id_f) {
     global $bdd;
-    
+
     $req = $bdd->prepare('DELETE FROM formation WHERE id_f = '.$id_f);
     $req->execute();
-    
+
 }
 
 function recup_tableau_chef_attente($id_chef) {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef);
-    
+
     return $req;
 }
 
 function updateLibelle($id_t, $libelle) {
     global $bdd;
-    
+
     $req = $bdd->prepare('UPDATE type_formation SET libelle = :libelle WHERE id_t ='.$id_t);
     $req->bindValue(':libelle', $libelle);
     $req->execute();
-    
+
 }
 
 function updateLibelleAcceptée($libelle) {
     global $bdd;
-    
+
     $req = $bdd->prepare('UPDATE type_formation SET libelle = :libelle WHERE libelle = "Acceptée"');
     $req->bindValue(':libelle', $libelle);
     $req->execute();
-    
+
 }
 
 function recup_formation_acceptée() {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT f.nb_jour, f.date_debut, f.id_f, t.libelle, t.id_f FROM formation f, type_formation t WHERE f.id_f = t.id_f AND libelle = "Acceptée"');
-    
+
     return $req;
 }
 
 function recup_historique_salarie($id_s) {
     global $bdd;
-    
+
     $req = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre, f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, s.nom, s.prenom, s.credits FROM type_formation t, formation f, salarie s WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND s.id_s = '.$id_s.' ORDER BY libelle DESC');
-    
+
     return $req;
-    
+
 }
 
 ?>

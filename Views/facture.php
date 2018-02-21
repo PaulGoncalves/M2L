@@ -2,13 +2,9 @@
 
 require('assets/fpdf/fpdf.php');
 
-$reqFacture = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre,
-                        f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, f.id_p, s.nom, s.prenom, s.credits, a.numero, a.ville, a.rue, a.code_postal, p.id_p, p.nom, p.mail, p.tel
-                        FROM type_formation t, formation f, salarie s, adresse a, prestataire p
-                        WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND f.id_p = p.id_p AND a.id_a = p.id_p
-                        AND s.id_s = '.$_GET['id_s'].' AND f.id_f='.$_GET['id_f']);
+$req = recup_pour_facture_pdf($_GET['id_s'], $_GET['id_f']);
 
-$donnees = $reqFacture->fetch();
+$donnees = $req->fetch();
 
 $nomFormation = $donnees['titre'];
 $cout = $donnees['nb_jour'];
@@ -18,10 +14,10 @@ $ville = $donnees['ville'];
 $codePostal = $donnees['code_postal'];
 $nomSalarie = $donnees['nom'];
 $prenomSalarie = $donnees['prenom'];
-$nbjoursSalarie = $donnees['nbs_jour'];
-$PrestTel = $donnees['telephone'];
+$nbjoursSalarie = $donnees['credits'];
+$PrestTel = $donnees['tel'];
 $PrestMail = $donnees['mail'];
-$PrestNom = $donnees['raison_social'];
+$PrestNom = $donnees['p_nom'];
 
 class PDF extends FPDF {
     // Header
@@ -104,6 +100,6 @@ $pdf->SetTitle('Facture');
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
-$pdf->Output();
+$pdf->Output('Facture-'.utf8_decode($nomSalarie.'-'.$prenomSalarie.'-Formation-'.$nomFormation.'-'.$_GET['date']), 'I');
 
 ?>
