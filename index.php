@@ -6,12 +6,17 @@ include 'Models/functionModels.php';
 session_start();
 define('BASE_URL',dirname($_SERVER['SCRIPT_NAME']));
 
+if(isset($_COOKIE['email'], $_COOKIE['password'])) {
+
+    login_cookies($_SESSION['auth'], $_COOKIE['email'], $_COOKIE['password']);
+
+}
 
 if(!isset($_SESSION['id_s'])) {
 
     $_GET['p'] = 'login';
     include 'controllers/'.$_GET['p'].'.php';
-    
+
 } else {
 
     if(!isset($_GET['p']) || $_GET['p'] == "") 

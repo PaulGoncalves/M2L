@@ -10,9 +10,16 @@ if(isset($_POST['submitConnexion'])) {
         $email = htmlspecialchars($_POST['email']);
         $mdp = sha1(htmlspecialchars($_POST['mdp']));
 
-        $user = get_user($email, $mdp);
+        $userReq = get_user($email, $mdp);
 
-        if($user) {
+        if($user= $userReq->fetch()) {
+            
+            if(isset($_POST['remember'])){
+                
+                setcookie('email', $email, time()+365*24*3600, null, null, false, true);
+                setcookie('password', $mdp, time()+365*24*3600, null, null, false, true);
+                
+            }
 
             $_SESSION['auth'] = true;
             $_SESSION['id_s'] = $user['id_s'];

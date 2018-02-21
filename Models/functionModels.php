@@ -7,7 +7,7 @@ function get_user($email, $mdp) {
     $reqUser->bindValue(':email', $email);
     $reqUser->bindValue(':mdp', $mdp);
     $reqUser->execute();
-    return $reqUser->fetch();
+    return $reqUser;
 }
 
 function recup_salarie($id_s) {

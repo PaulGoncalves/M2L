@@ -2,7 +2,8 @@
 
 $_GET['p'] = 'Details-Formation';
 
-$title = 'Formation '.$_GET['titre'].' - M2L Formation';
+    $title = 'Formation '.$_GET['titre'].' - M2L Formation';
+
 
 if(isset($_POST['validAjoutPanier'])) {
 
@@ -41,9 +42,9 @@ if(isset($_POST['validAjoutPanier'])) {
 
                 $messageAjoutFormation = '<h4 style="color:green;">La demande de formation a bien été prise en compte, veuillez patienter le temps de son acceptation</h4>';
             } else {
-                
+
                 $messageAjoutFormation = '<h4 style="color:red;">Vous n\'avez pas asser de crédits disponible pour cette formation</h4>';
-                
+
             }
 
         } else {
@@ -56,5 +57,15 @@ if(isset($_POST['validAjoutPanier'])) {
 
 }
 
-require 'Views/details-formation.php';
+
+if(isset($_GET['titre'], $_GET['date_debut'])) {
+
+
+    require 'Views/details-formation.php';
+
+} else {
+    
+    header('Location: '.BASE_URL.'/Formations');
+    
+}
 ?>

@@ -2,9 +2,35 @@
 
 function disconect() {
 
+
+    setcookie('email', '', time()-3600);
+    setcookie('password', '', time()-3600); //Destruction des cookies
+
     session_start();
     session_destroy();
     header('Location:' .BASE_URL);
+}
+
+function login_cookies($session, $cookieMail, $cookiePassword) {
+
+    if(!isset($session) AND isset($cookieMail, $cookiePassword) AND !empty($cookieMail) AND !empty($cookiePassword)) {
+
+        $userReq = get_user($cookieMail, $cookiePassword);
+
+        if($user = $userReq->fetch()) {
+
+            $_SESSION['auth'] = true;
+            $_SESSION['id_s'] = $user['id_s'];
+            $_SESSION['nom'] = $user['nom'];
+            $_SESSION['prenom'] = $user['prenom'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['mdp'] = $user['mdp'];
+            $_SESSION['lvl'] = $user['lvl'];
+            $_SESSION['credits'] = $user['credits'];
+
+
+        }
+    }
 }
 
 function redirection() {
@@ -530,27 +556,27 @@ function tableau_historique_salarie($id_s) {
                         <td>'.$resultat['date_debut'].'</td>
                         <td>'.$resultat['nb_jour'].'</td>
                         <td>';
-                        if($resultat['libelle'] == "En attente") {
-                            
-                            $contenu .= '<span class="indicator label-attente"></span> En attente';
-                            
-                        }elseif($resultat['libelle'] == "Acceptée") {
-                            
-                            $contenu .= '<span class="indicator label-success"></span> Acceptée';
-                        }elseif($resultat['libelle'] == "Effectuée") {
-                            
-                            $contenu .= '<span class="indicator label-effectue"></span> Effectuée';
-                        }
+        if($resultat['libelle'] == "En attente") {
+
+            $contenu .= '<span class="indicator label-attente"></span> En attente';
+
+        }elseif($resultat['libelle'] == "Acceptée") {
+
+            $contenu .= '<span class="indicator label-success"></span> Acceptée';
+        }elseif($resultat['libelle'] == "Effectuée") {
+
+            $contenu .= '<span class="indicator label-effectue"></span> Effectuée';
+        }
         $contenu .= '</td>
                     <td>';
-                    if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Validée') {
-                        
-                        $contenu .= 'La facture n\'est pas encore disponible';
-                        
-                    } else {
-                        
-                        $contenu .= '<a href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
-                    }
+        if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Validée') {
+
+            $contenu .= 'La facture n\'est pas encore disponible';
+
+        } else {
+
+            $contenu .= '<a href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
+        }
         $contenu .= '</td>
                     </tr>';
 
