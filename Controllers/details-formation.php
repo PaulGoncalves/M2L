@@ -58,7 +58,7 @@ if(isset($_POST['validAjoutPanier'])) {
 }
 
 
-if(isset($_GET['titre'], $_GET['date_debut'])) {
+if(isset($_GET['titre'], $_GET['date'])) {
 
 
     require 'Views/details-formation.php';
