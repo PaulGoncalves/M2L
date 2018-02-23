@@ -247,6 +247,14 @@ function recup_tout_salarie() {
     return $req;
 }
 
+function recup_formation_different_refusee() {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM type_formation WHERE libelle != "Refusée"');
+    
+    return $req;
+}
+
 function recup_salarie_selon_chef($id_chef) {
     global $bdd;
 

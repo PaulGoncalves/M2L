@@ -509,6 +509,16 @@ function compte_salarie_a_charge($id_chef) {
 
 }
 
+function compte_salarie() {
+
+    $req = recup_tout_salarie();
+
+    $resultat = $req->rowCount();
+
+    return $resultat;
+
+}
+
 function compte_formation() {
 
     $req = recup_formation();
@@ -516,6 +526,25 @@ function compte_formation() {
     $resultat = $req->rowCount();
 
     return $resultat;
+}
+
+function compte_prestataire() {
+
+    $req = recup_prestataire();
+
+    $resultat = $req->rowCount();
+
+    return $resultat;
+}
+
+function compte_inscription_formation() {
+    
+    $req = recup_formation_different_refusee();
+    
+    $resultat = $req->rowCount();
+    
+    return $resultat;
+    
 }
 
 function MAJ_historique_Formation() {
