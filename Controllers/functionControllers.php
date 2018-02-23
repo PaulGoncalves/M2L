@@ -48,47 +48,12 @@ function menu_lvl($lvl, $page) {
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
         if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
         if($page == 'Historique-formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Historique-formation"><em class="fa fa-bar-chart">&nbsp;</em> Historique de formation</a></li>';
-        $contenu .= '<li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
-                <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-                <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-                    <em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                    </a>
-                    <ul class="children collapse" id="sub-item-1">
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-                            </a></li>
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-                            </a></li>
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-                            </a></li>
-                    </ul>
-                </li>';
 
     } elseif($lvl == 2) {
 
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
         if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
         if($page == 'Gestion-Formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Gestion-Formation"><em class="fa fa-user">&nbsp;</em> Gestion Formation salarié</a></li>';
-        $contenu .= '<li><a href="charts.html"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
-                <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
-                <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>
-                <li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-                    <em class="fa fa-navicon">&nbsp;</em> Multilevel <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                    </a>
-                    <ul class="children collapse" id="sub-item-1">
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 1
-                            </a></li>
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 2
-                            </a></li>
-                        <li><a class="" href="#">
-                            <span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-                            </a></li>
-                    </ul>
-                </li>';
 
     } elseif($lvl == 3) {
 
