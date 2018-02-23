@@ -146,6 +146,25 @@ function insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef) {
     $req->execute();
 }
 
+function insert_chef($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef) {
+    global $bdd;
+
+    $req = $bdd->prepare('INSERT INTO salarie(nom, prenom, email, mdp, lvl, credits, id_chef) VALUES(:nom, :prenom, :email, :mdp, :lvl, :credits, :id_chef)');
+    $req->bindValue(':nom', $nom);
+    $req->bindValue('prenom', $prenom);
+    $req->bindValue('email', $email);
+    $req->bindValue('mdp', $mdp);
+    $req->bindValue('lvl', $lvl);
+    $req->bindValue('credits', $credits);
+    $req->bindValue('id_chef', $id_chef);
+    $req->execute();
+    $id_chef = $bdd->lastInsertId();
+    
+    $reqUp = $bdd->prepare('UPDATE salarie SET id_chef = :id_chef WHERE id_s = '.$id_chef);
+    $reqUp->bindValue(':id_chef', $id_chef);
+    $reqUp->execute();
+}
+
 function recup_formation_detail($titre, $dateUrl) {
     global $bdd;
 

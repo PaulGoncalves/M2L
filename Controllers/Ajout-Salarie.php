@@ -38,7 +38,7 @@ if(isset($_POST['validSalarie'])) {
 
                 $id_chef = NULL;
 
-                insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
+                insert_chef($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
 
                 $messageSalarie = 'Le chef à bien été ajouté';
 
