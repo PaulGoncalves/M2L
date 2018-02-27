@@ -10,6 +10,15 @@ function get_user($email, $mdp) {
     return $reqUser;
 }
 
+function verif_mail($email) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM salarie WHERE email = "'.$email.'"');
+    
+    
+    return $req;
+}
+
 function recup_salarie($id_s) {
     global $bdd;
 
@@ -58,10 +67,18 @@ function recup_formation() {
     return $req;
 }
 
-function recup_formation_salarie() {
+function recup_formation_date() {
     global $bdd;
 
     $req = $bdd->query('SELECT * FROM formation WHERE date_debut > CURDATE() AND nb_place >= 1 ORDER BY date_debut');
+
+    return $req;
+}
+
+function recup_formation_salarie($depart, $fin) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM formation WHERE date_debut > CURDATE() AND nb_place >= 1 ORDER BY date_debut LIMIT '.$depart.', '.$fin);
 
     return $req;
 }
@@ -255,6 +272,15 @@ function recup_formation_different_refusee() {
     return $req;
 }
 
+function recup_salarie_selon_chef_pagination($id_chef, $depart, $fin) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef.' LIMIT '.$depart.','.$fin);
+
+    return $req;
+
+}
+
 function recup_salarie_selon_chef($id_chef) {
     global $bdd;
 
@@ -272,10 +298,10 @@ function delete_formation($id_f) {
 
 }
 
-function recup_tableau_chef_attente($id_chef) {
+function recup_tableau_chef_attente($id_chef, $depart, $fin) {
     global $bdd;
 
-    $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef);
+    $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef.' LIMIT '.$depart.', '.$fin);
 
     return $req;
 }

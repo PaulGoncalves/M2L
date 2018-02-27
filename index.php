@@ -8,11 +8,20 @@ define('BASE_URL',dirname($_SERVER['SCRIPT_NAME']));
 
 if(isset($_COOKIE['email'], $_COOKIE['password'])) {
 
-    login_cookies($_SESSION['auth'], $_COOKIE['email'], $_COOKIE['password']);
+    if(!isset($_SESSION['auth'])) {
+
+        login_cookies($_COOKIE['email'], $_COOKIE['password']);
+
+    }
 
 }
 
-if(!isset($_SESSION['id_s'])) {
+if(isset($_GET['p']) AND !isset($_SESSION['id_s']) AND $_GET['p'] == "Mot-de-passe-oublie") {
+    
+    $_GET['p'] = 'Mot-de-passe-oublie';
+    include 'controllers/'.$_GET['p'].'.php';
+    
+} elseif(!isset($_SESSION['id_s'])) {
 
     $_GET['p'] = 'login';
     include 'controllers/'.$_GET['p'].'.php';

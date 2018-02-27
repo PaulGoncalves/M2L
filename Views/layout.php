@@ -59,7 +59,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown"><a class="dropdown-toggle count-info" href="<?= BASE_URL; ?>/Deconnexion">
+                        <li class="dropdown"><a onclick="return(confirm('ATTENTION ! Êtes-vous sûr de vouloir vous déconnecter ?'));" class="dropdown-toggle count-info" href="<?= BASE_URL; ?>/Deconnexion">
                             <em class="fa fa-power-off">&nbsp;</em>
                             </a>
                         </li>
@@ -84,7 +84,7 @@
             </form>
             <ul class="nav menu">
                 <?php echo menu_lvl($_SESSION['lvl'], $_GET['p']); ?>
-                <li><a href="<?= BASE_URL; ?>/Deconnexion"><em class="fa fa-power-off">&nbsp;</em> Déconnexion</a></li>
+                <li><a onclick="return(confirm('ATTENTION ! Êtes-vous sûr de vouloir vous déconnecter ?'));" href="<?= BASE_URL; ?>/Deconnexion"><em class="fa fa-power-off">&nbsp;</em> Déconnexion</a></li>
             </ul>
         </div><!--/.sidebar-->
 

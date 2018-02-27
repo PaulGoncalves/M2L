@@ -32,7 +32,7 @@
             <br />
             <br />
             <div class="panel-heading">
-                <h3>Liste des salarié à votre charge :</h3>
+                <h3>Liste des salariés à votre charge :</h3>
             </div>
             <div class="panel-body articles-container">
                 <table class="table table-striped">

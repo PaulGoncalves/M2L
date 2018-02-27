@@ -32,6 +32,9 @@
 									<input name="remember" type="checkbox" value="Se souvenir de moi">Se souvenir de moi
 								</label>
 							</div>
+                            <div>
+                                <a href="<?= BASE_URL ?>/Mot-de-passe-oublie">Mot de passe oublié ?</a>
+                            </div>
                             <br />
 							<input type="submit" class="btn btn-primary" value="Connexion" name="submitConnexion" />
                         </fieldset>

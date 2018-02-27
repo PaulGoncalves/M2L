@@ -11,9 +11,9 @@ function disconect() {
     header('Location:' .BASE_URL);
 }
 
-function login_cookies($session, $cookieMail, $cookiePassword) {
+function login_cookies($cookieMail, $cookiePassword) {
 
-    if(!isset($session) AND isset($cookieMail, $cookiePassword) AND !empty($cookieMail) AND !empty($cookiePassword)) {
+    if(isset($cookieMail, $cookiePassword) AND !empty($cookieMail) AND !empty($cookiePassword)) {
 
         $userReq = get_user($cookieMail, $cookiePassword);
 
@@ -174,9 +174,30 @@ function affich_formation_admin() {
 
 function affich_formation_salarie() {
 
-    $req = recup_formation_salarie();
-
     $contenu = '';
+
+    $FormationParPage = 10;
+    $ReqFormation = recup_formation_date();
+    $formationTotales = $ReqFormation->rowCount();
+
+    $pageTotal = ceil($formationTotales/$FormationParPage);
+
+    if(isset($_GET['numpage']) AND !empty($_GET['numpage']) AND $_GET['numpage'] > 0) {
+
+        $_GET['numpage'] = intval($_GET['numpage']);
+        $pageCourante = $_GET['numpage'];
+
+    } else {
+
+        $pageCourante = 1;
+
+    }
+
+    $depart = ($pageCourante - 1 )*$FormationParPage;
+
+
+
+    $req = recup_formation_salarie($depart, $FormationParPage);
 
     if($resultatForm = $req->rowCount() > 0) {
 
@@ -202,6 +223,11 @@ function affich_formation_salarie() {
 
         }
 
+        $contenu .= '</table>';
+
+        $contenu .= pagination($pageTotal, $pageCourante, '/Formations/');
+
+
     } else {
 
         $contenu .= '<tr>
@@ -209,8 +235,6 @@ function affich_formation_salarie() {
                      </tr>';
 
     }
-
-    $contenu .= '';
 
     return $contenu;
 }
@@ -392,9 +416,30 @@ function tableau_liste_salarie() {
 
 function tableau_liste_salarie_chef($id_chef) {
 
-    $req = recup_salarie_selon_chef($id_chef);
-
     $contenu = '';
+
+    $FormationParPage = 10;
+    $ReqFormation = recup_formation_date();
+    $formationTotales = $ReqFormation->rowCount();
+
+    $pageTotal = ceil($formationTotales/$FormationParPage);
+
+    if(isset($_GET['numpage']) AND !empty($_GET['numpage']) AND $_GET['numpage'] > 0) {
+
+        $_GET['numpage'] = intval($_GET['numpage']);
+        $pageCourante = $_GET['numpage'];
+
+    } else {
+
+        $pageCourante = 1;
+
+    }
+
+    $depart = ($pageCourante - 1 )*$FormationParPage;
+
+
+
+    $req = recup_salarie_selon_chef_pagination($id_chef, $depart, $FormationParPage);
 
     if($resultat = $req->rowCount()) {
 
@@ -412,6 +457,10 @@ function tableau_liste_salarie_chef($id_chef) {
 
         }
 
+        $contenu .= '</table>';
+
+        $contenu .= pagination($pageTotal, $pageCourante, '/Gestion-Formation/');
+
     } else {
 
         $contenu .= '<tr>
@@ -420,8 +469,6 @@ function tableau_liste_salarie_chef($id_chef) {
 
     }
 
-    $contenu .= '';
-
     return $contenu;
 }
 
@@ -429,7 +476,28 @@ function tableau_chef_formation_attente($id_chef) {
 
     $contenu = '';
 
-    $req = recup_tableau_chef_attente($id_chef);
+    $FormationParPage = 10;
+    $ReqFormation = recup_formation_date();
+    $formationTotales = $ReqFormation->rowCount();
+
+    $pageTotal = ceil($formationTotales/$FormationParPage);
+
+    if(isset($_GET['numpage']) AND !empty($_GET['numpage']) AND $_GET['numpage'] > 0) {
+
+        $_GET['numpage'] = intval($_GET['numpage']);
+        $pageCourante = $_GET['numpage'];
+
+    } else {
+
+        $pageCourante = 1;
+
+    }
+
+    $depart = ($pageCourante - 1 )*$FormationParPage;
+
+
+
+    $req = recup_tableau_chef_attente($id_chef, $depart, $FormationParPage);
 
     if($resultat = $req->rowCount()) {
 
@@ -453,13 +521,16 @@ function tableau_chef_formation_attente($id_chef) {
 
         }
 
+
+        $contenu .= '</table>';
+
+        $contenu .= pagination($pageTotal, $pageCourante, '/Gestion-Formation/');
+
     } else {
 
         $contenu .= '<tr><td colspan="6" align="center">Il n\'y a aucune formation en attente de vos salariés</td></tr>';
 
     }
-
-    $contenu .= '';
 
     return $contenu;
 }
@@ -503,13 +574,13 @@ function compte_prestataire() {
 }
 
 function compte_inscription_formation() {
-    
+
     $req = recup_formation_different_refusee();
-    
+
     $resultat = $req->rowCount();
-    
+
     return $resultat;
-    
+
 }
 
 function MAJ_historique_Formation() {
@@ -580,4 +651,46 @@ function tableau_historique_salarie($id_s) {
 
     return $contenu;
 }
+
+function pagination($pageTotal, $pageCourante, $lien) {
+
+    $contenu = '<div align="center">
+                    <ul class="pagination">';
+
+    for($i = 1; $i <= $pageTotal;$i++) {
+
+
+        if($i == $pageCourante) {
+
+            $contenu .= '<li class="disabled"><a style="background-color:#dadada; color:white;">'.$i.'</a></li>';
+
+        } else {
+
+            $contenu .= '<li><a href="'.BASE_URL.$lien.$i.'">'.$i.'</a></li>';
+
+        }
+    }
+
+    $contenu .= '</ul>
+            </div>';
+
+    return $contenu;
+
+}
+
+function generation_mdp($nbCaractere) {
+
+    $contenu = "";
+
+    for($i = 0; $i <= $nbCaractere; $i++)
+    {
+        $random = rand(97,122);
+        $contenu .= chr($random);
+    }
+
+    return $contenu;
+}
+
+
+
 ?>

@@ -2,6 +2,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([a-zA-Z0-9\-]*)$ index.php?p=$1 [QSA,L]
+RewriteRule ^([a-zA-Z0-9\-]*)\/([0-9\-]*)$ index.php?p=$1&numpage=$2 [QSA,L]
 RewriteRule ^([a-zA-Z0-9\-]*)\/([a-zA-Z0-9\-]*)\/([0-9\-]*)$ index.php?p=$1&titre=$2&date=$3 [QSA,L]
 RewriteRule ^([a-zA-Z0-9\-]*)\/([a-zA-Z0-9\-]*)\/([0-9\-]*)\/([0-9\-]*)\/([0-9\-]*)\/([a-zA-Z0-9\-]*)$ index.php?p=$1&titre=$2&date=$3&id_f=$4&id_s=$5&nom=$6 [QSA,L]
 RewriteRule ^([a-zA-Z0-9\-]*)\/([0-9])$ index.php?p=$1&id_f=$2 [QSA,L]
