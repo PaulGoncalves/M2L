@@ -104,6 +104,93 @@ function recup_pour_facture_pdf($id_s, $id_f) {
 
 }
 
+function recup_salarie_chef() {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie WHERE lvl = 2');
+
+    return $req;
+}
+
+function recup_tout_salarie() {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie');
+
+    return $req;
+}
+
+function recup_formation_different_refusee() {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM type_formation WHERE libelle != "Refusée"');
+    
+    return $req;
+}
+
+function recup_salarie_selon_chef_pagination($id_chef, $depart, $fin) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef.' LIMIT '.$depart.','.$fin);
+
+    return $req;
+
+}
+
+function recup_salarie_selon_chef($id_chef) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef);
+
+    return $req;
+
+}
+
+function recup_formation_acceptée() {
+    global $bdd;
+
+    $req = $bdd->query('SELECT f.nb_jour, f.date_debut, f.id_f, t.libelle, t.id_f FROM formation f, type_formation t WHERE f.id_f = t.id_f AND libelle = "Acceptée"');
+
+    return $req;
+}
+
+function recup_historique_salarie($id_s) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre, f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, s.nom, s.prenom, s.credits FROM type_formation t, formation f, salarie s WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND s.id_s = '.$id_s.' ORDER BY libelle DESC');
+
+    return $req;
+
+}
+
+function recup_tableau_chef_attente($id_chef, $depart, $fin) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef.' LIMIT '.$depart.', '.$fin);
+
+    return $req;
+}
+
+function recup_formation_detail($titre, $dateUrl) {
+    global $bdd;
+
+    $dateOriginal = $dateUrl;
+    $newDate = date("Y-m-d", strtotime($dateOriginal));
+
+    $req = $bdd->query('SELECT * FROM formation WHERE titre = "'.$titre.'" AND date_debut = "'.$newDate.'"');
+
+    return $req;
+}
+
+function recup_libelle_formation($id_s, $id_f) {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM type_formation WHERE id_f = '.$id_f.' AND id_s = '.$id_s);
+
+    return $req;
+
+}
+
 function insert_prestataire($adresse, $nom, $tel, $mail) {
     global $bdd;
 
@@ -182,35 +269,6 @@ function insert_chef($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef) {
     $reqUp->execute();
 }
 
-function recup_formation_detail($titre, $dateUrl) {
-    global $bdd;
-
-    $dateOriginal = $dateUrl;
-    $newDate = date("Y-m-d", strtotime($dateOriginal));
-
-    $req = $bdd->query('SELECT * FROM formation WHERE titre = "'.$titre.'" AND date_debut = "'.$newDate.'"');
-
-    return $req;
-}
-
-function recup_libelle_formation($id_s, $id_f) {
-    global $bdd;
-
-    $req = $bdd->query('SELECT * FROM type_formation WHERE id_f = '.$id_f.' AND id_s = '.$id_s);
-
-    return $req;
-
-}
-
-function update_place_formation($placeDispo, $id_f) {
-    global $bdd;
-
-    $req = $bdd->prepare('UPDATE formation SET nb_place = :nb_place WHERE id_f = '.$id_f);
-    $req->bindValue(':nb_place', $placeDispo);
-    $req->execute();
-
-}
-
 function insert_libelle_formation($libelle, $id_f, $id_s) {
     global $bdd;
 
@@ -248,64 +306,6 @@ function update_credit_salarie($id_s, $credits) {
 
 }
 
-function recup_salarie_chef() {
-    global $bdd;
-
-    $req = $bdd->query('SELECT * FROM salarie WHERE lvl = 2');
-
-    return $req;
-}
-
-function recup_tout_salarie() {
-    global $bdd;
-
-    $req = $bdd->query('SELECT * FROM salarie');
-
-    return $req;
-}
-
-function recup_formation_different_refusee() {
-    global $bdd;
-    
-    $req = $bdd->query('SELECT * FROM type_formation WHERE libelle != "Refusée"');
-    
-    return $req;
-}
-
-function recup_salarie_selon_chef_pagination($id_chef, $depart, $fin) {
-    global $bdd;
-
-    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef.' LIMIT '.$depart.','.$fin);
-
-    return $req;
-
-}
-
-function recup_salarie_selon_chef($id_chef) {
-    global $bdd;
-
-    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef);
-
-    return $req;
-
-}
-
-function delete_formation($id_f) {
-    global $bdd;
-
-    $req = $bdd->prepare('DELETE FROM formation WHERE id_f = '.$id_f);
-    $req->execute();
-
-}
-
-function recup_tableau_chef_attente($id_chef, $depart, $fin) {
-    global $bdd;
-
-    $req = $bdd->query('SELECT t.id_t, t.libelle, t.id_s, t.id_f, s.id_s, s.nom, s.prenom, s.id_chef, f.id_f, f.titre, f.date_debut, f.nb_place, f.nb_jour FROM type_formation t, salarie s, formation f WHERE t.id_s = s.id_s AND t.id_f = f.id_f AND t.libelle = "En Attente" AND s.id_chef = '.$id_chef.' LIMIT '.$depart.', '.$fin);
-
-    return $req;
-}
-
 function updateLibelle($id_t, $libelle) {
     global $bdd;
 
@@ -324,20 +324,29 @@ function updateLibelleAcceptée($libelle) {
 
 }
 
-function recup_formation_acceptée() {
+function update_place_formation($placeDispo, $id_f) {
     global $bdd;
 
-    $req = $bdd->query('SELECT f.nb_jour, f.date_debut, f.id_f, t.libelle, t.id_f FROM formation f, type_formation t WHERE f.id_f = t.id_f AND libelle = "Acceptée"');
+    $req = $bdd->prepare('UPDATE formation SET nb_place = :nb_place WHERE id_f = '.$id_f);
+    $req->bindValue(':nb_place', $placeDispo);
+    $req->execute();
 
-    return $req;
 }
 
-function recup_historique_salarie($id_s) {
+function update_mdp_salarie($email, $mdp) {
+    global $bdd;
+    
+    $req = $bdd->prepare('UPDATE salarie SET mdp = :mdp WHERE email = "'.$email.'"');
+    $req->bindValue(':mdp', $mdp);
+    $req->execute();
+    
+}
+
+function delete_formation($id_f) {
     global $bdd;
 
-    $req = $bdd->query('SELECT t.id_f, t.id_t, t.libelle, t.id_s, f.titre, f.nb_jour, f.date_debut, f.nb_place, f.contenu, f.id_f, s.nom, s.prenom, s.credits FROM type_formation t, formation f, salarie s WHERE f.id_f = t.id_f AND t.id_s = s.id_s AND s.id_s = '.$id_s.' ORDER BY libelle DESC');
-
-    return $req;
+    $req = $bdd->prepare('DELETE FROM formation WHERE id_f = '.$id_f);
+    $req->execute();
 
 }
 

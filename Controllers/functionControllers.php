@@ -691,6 +691,30 @@ function generation_mdp($nbCaractere) {
     return $contenu;
 }
 
+function banniere_danger($texte) {
+    
+    $contenu = '<br />
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            '.$texte.'
+                        </div>';
+    
+    return $contenu;
+    
+}
+
+function banniere_succes($texte) {
+    
+    $contenu = '<br />
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            '.$texte.'
+                        </div>';
+    
+    return $contenu;
+    
+}
+
 
 
 ?>
