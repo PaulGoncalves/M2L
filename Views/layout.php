@@ -1,4 +1,6 @@
-<?php update_layout_credits($_SESSION['id_s']); ?>
+<?php 
+update_layout_credits($_SESSION['id_s']);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,11 +52,20 @@
                 <div class="clear"></div>
             </div>
             <div class="divider"></div>
-            <form role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-            </form>
+            <div class="form-group">
+                <form method="POST" action="<?= BASE_URL; ?>/Recherche">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" name="recherche" class="search-query form-control" placeholder="Chercher une formation" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" name="validSearch" type="submit">
+                                    <span class=" glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <ul class="nav menu">
                 <?php echo menu_lvl($_SESSION['lvl'], $_GET['p']); ?>
                 <li><a onclick="return(confirm('ATTENTION ! Êtes-vous sûr de vouloir vous déconnecter ?'));" href="<?= BASE_URL; ?>/Deconnexion"><em class="fa fa-power-off">&nbsp;</em> Déconnexion</a></li>
