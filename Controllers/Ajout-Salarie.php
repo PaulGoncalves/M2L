@@ -16,52 +16,71 @@ if(isset($_POST['validSalarie'])) {
 
         if($mdp == $mdp2) {
 
-            if($lvl == 1) {
+            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                $chef = htmlspecialchars($_POST['chef']);
+                $req = verif_mail($email);
+                $resultat = $req->rowCount();
 
-                if(!empty($chef)) {
+                if($resultat['email'] >= 1) {
 
-                    insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $chef);
+                    if($lvl == 1) {
 
-                    $messageSalarie = 'Le salarié a bien été ajouté';
+                        $chef = htmlspecialchars($_POST['chef']);
+
+                        if(!empty($chef)) {
+
+                            insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $chef);
+
+                            $messageSalarie = banniere_succes('Le salarié a bien été ajouté.');
+
+                        } else {
+
+                            $messageSalarie = banniere_danger('Vous devez choisir un chef s\'il s\'agit d\'un salarié.');
+
+                        }
+
+                    }
+
+                    if($lvl == 2) {
+
+                        $id_chef = NULL;
+
+                        insert_chef($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
+
+                        $messageSalarie = banniere_succes('Le chef à bien été ajouté.');
+
+                    } elseif($lvl == 3) {
+
+                        $id_chef = NULL;
+
+                        insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
+
+                        $messageSalarie = banniere_succes('L\'administrateur à bien été ajouté');
+                    }
 
                 } else {
 
-                    $messageSalarie = 'Vous devez choisir un chef s\'il s\'agit d\'un salarié';
+                    $messageSalarie = banniere_danger('L\'adresse email n\'est pas disponible.');
 
                 }
 
+            } else {
+                
+                $messageSalarie = banniere_danger('Le format de l\'adresse email n\'est pas correct.');
+                
             }
-
-            if($lvl == 2) {
-
-                $id_chef = NULL;
-
-                insert_chef($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
-
-                $messageSalarie = 'Le chef à bien été ajouté';
-
-            } elseif($lvl == 3) {
-
-                $id_chef = NULL;
-
-                insert_salarie($nom, $prenom, $email, $mdp, $lvl, $credits, $id_chef);
-
-                $messageSalarie = 'L\'administrateur à bien été ajouté';
-            }
-
 
         } else {
 
-            $messageSalarie = 'Les deux mot de passe ne correspondent pas';
+            $messageSalarie = banniere_danger('Les deux mot de passe ne correspondent pas.');
 
         }
 
     } else {
 
-        $messageSalarie = 'Vous devez remplir tous les champs';
+        $messageSalarie = banniere_danger('Vous devez remplir tous les champs.');
     }
+
 
 };
 
