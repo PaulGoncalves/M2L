@@ -692,29 +692,56 @@ function generation_mdp($nbCaractere) {
 }
 
 function banniere_danger($texte) {
-    
+
     $contenu = '<br />
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             '.$texte.'
                         </div>';
-    
+
     return $contenu;
-    
+
 }
 
 function banniere_succes($texte) {
-    
+
     $contenu = '<br />
                         <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             '.$texte.'
                         </div>';
-    
+
     return $contenu;
-    
+
 }
 
+function recherche($recherche) {
 
+    $req = recherche_formation($recherche);
+    $nombreligne = $req->rowCount();
+
+    $contenu = '';
+
+    if($nombreligne >= 1) {
+
+        while($resultat = $req->fetch()) {
+
+
+            $newDateUrl = date("d-m-Y", strtotime($resultat['date_debut']));
+
+            $contenu .= '<a href="'.BASE_URL.'/details-formation/'.$resultat['titre'].'/'.$newDateUrl.'"><h4>'.$resultat['titre'].' - '.date('d/m/Y', strtotime($resultat['date_debut'])).'</a></h4>
+                    <p>'.$resultat['contenu'].'</p><hr />';
+        }
+
+    } else {
+
+        $messageRecherche = banniere_danger('Aucun résultat n\'a été trouvé.');
+        $contenu .= $messageRecherche;
+
+    }
+
+    return $contenu;
+
+}
 
 ?>

@@ -28,7 +28,7 @@ update_layout_credits($_SESSION['id_s']);
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span></button>
-                    <a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+                    <a class="navbar-brand" href="<?= BASE_URL; ?>"><span>FORM</span>ATION M2L</a>
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown"><a class="dropdown-toggle count-info" href="<?= BASE_URL; ?>/Profil">
                             <em class="fa fa-user"></em>

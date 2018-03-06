@@ -350,4 +350,13 @@ function delete_formation($id_f) {
 
 }
 
+function recherche_formation($recherche) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM formation WHERE date_debut > CURDATE() AND nb_place >= 1 AND titre LIKE "%'.$recherche.'%" OR date_debut LIKE "%'.$recherche.'%" OR contenu LIKE "%'.$recherche.'%" ORDER BY date_debut');
+    
+    
+    return $req;
+}
+
 ?>
