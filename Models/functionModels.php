@@ -13,7 +13,7 @@ function get_user($email, $mdp) {
 function verif_mail($email) {
     global $bdd;
     
-    $req = $bdd->query('SELECT * FROM salarie WHERE email = "'.$email.'"');
+    $req = $bdd->query('SELECT COUNT(*) AS nbr FROM salarie WHERE email = "'.$email.'"');
     
     
     return $req;

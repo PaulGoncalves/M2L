@@ -19,9 +19,9 @@ if(isset($_POST['validSalarie'])) {
             if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 $req = verif_mail($email);
-                $resultat = $req->rowCount();
-
-                if($resultat['email'] >= 1) {
+                $resultat = $req->fetch();
+                
+                if($resultat['nbr'] == 0) {
 
                     if($lvl == 1) {
 
@@ -61,13 +61,12 @@ if(isset($_POST['validSalarie'])) {
                 } else {
 
                     $messageSalarie = banniere_danger('L\'adresse email n\'est pas disponible.');
-
                 }
 
             } else {
-                
+
                 $messageSalarie = banniere_danger('Le format de l\'adresse email n\'est pas correct.');
-                
+
             }
 
         } else {
