@@ -78,6 +78,8 @@ update_layout_credits($_SESSION['id_s']);
         </div>	<!--/.main-->
 
 
+
+
         <script src="<?= BASE_URL; ?>/Views/assets/js/jquery-1.11.1.min.js"></script>
         <script src="<?= BASE_URL; ?>/Views/assets/js/bootstrap.min.js"></script>
         <script src="<?= BASE_URL; ?>/Views/assets/js/chart.min.js"></script>

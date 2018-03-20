@@ -473,6 +473,41 @@ function tableau_liste_salarie_chef($id_chef) {
     return $contenu;
 }
 
+function tableau_liste_salarie_chef_dashboard($id_chef) {
+
+    $contenu = '';
+    
+    $req = recup_salarie_selon_chef($id_chef);
+
+    if($resultat = $req->rowCount()) {
+
+        while($resultat = $req->fetch()) {
+
+            $contenu .= '<tr>
+                        <td>'.$resultat['nom'].' '.$resultat['prenom'].'</td>
+                        <td>'.$resultat['credits'].'</td>
+                        <td>'.$resultat['email'].'</td>
+                        <td>';
+
+            $contenu .= '</td>
+                    </tr>';
+
+        }
+
+        $contenu .= '</table>';
+
+
+    } else {
+
+        $contenu .= '<tr>
+                        <td colspan="5">Vous n\'avez pas de salarié à votre charge</td>
+                    </tr>';
+
+    }
+
+    return $contenu;
+}
+
 function tableau_chef_formation_attente($id_chef) {
 
     $contenu = '';

@@ -140,7 +140,7 @@ function recup_salarie_selon_chef_pagination($id_chef, $depart, $fin) {
 function recup_salarie_selon_chef($id_chef) {
     global $bdd;
 
-    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef);
+    $req = $bdd->query('SELECT * FROM salarie WHERE lvl != 2 AND id_chef = '.$id_chef);
 
     return $req;
 
