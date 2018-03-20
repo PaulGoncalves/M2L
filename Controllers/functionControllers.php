@@ -53,6 +53,7 @@ function menu_lvl($lvl, $page) {
 
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
         if($page == 'Formations') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Formations"><em class="fa fa-calendar">&nbsp;</em> Formations</a></li>';
+        if($page == 'Historique-Formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/historique-formation"><em class="fa fa-list">&nbsp;</em> Mon historique de formation</a></li>';
         if($page == 'Gestion-Formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Gestion-Formation"><em class="fa fa-user">&nbsp;</em> Gestion Formation salarié</a></li>';
 
     } elseif($lvl == 3) {
@@ -634,7 +635,7 @@ function tableau_historique_salarie($id_s) {
         }
         $contenu .= '</td>
                     <td>';
-        if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Validée') {
+        if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Acceptée' || $resultat['libelle'] == 'Refusée') {
 
             $contenu .= 'La facture n\'est pas encore disponible';
 
@@ -644,6 +645,43 @@ function tableau_historique_salarie($id_s) {
         }
         $contenu .= '</td>
                     </tr>';
+
+    }
+
+    $contenu .= '';
+
+    return $contenu;
+}
+
+function tableau_historique_dashbord($id_s) {
+
+    $req = recup_historique_salarie($id_s);
+
+    $contenu = '';
+
+    while($resultat = $req->fetch()) {
+
+        $contenu .= '<tr>
+                        <td>'.$resultat['titre'].'</td>
+                        <td>'.$resultat['date_debut'].'</td>
+                        <td>';
+        if($resultat['libelle'] == "En attente") {
+
+            $contenu .= '<span class="indicator label-attente"></span> En attente';
+
+        }elseif($resultat['libelle'] == "Acceptée") {
+
+            $contenu .= '<span class="indicator label-success"></span> Acceptée';
+        }elseif($resultat['libelle'] == "Effectuée") {
+
+            $contenu .= '<span class="indicator label-effectue"></span> Effectuée';
+        }elseif($resultat['libelle'] == "Refusée") {
+
+            $contenu .= '<span class="indicator label-refuse"></span> Refusée';
+        }
+        
+        $contenu .= '</td>
+                    <td>';
 
     }
 

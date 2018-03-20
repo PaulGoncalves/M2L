@@ -131,7 +131,7 @@ function recup_formation_different_refusee() {
 function recup_salarie_selon_chef_pagination($id_chef, $depart, $fin) {
     global $bdd;
 
-    $req = $bdd->query('SELECT * FROM salarie WHERE id_chef = '.$id_chef.' LIMIT '.$depart.','.$fin);
+    $req = $bdd->query('SELECT * FROM salarie WHERE lvl != 2 AND id_chef = '.$id_chef.' LIMIT '.$depart.','.$fin);
 
     return $req;
 
