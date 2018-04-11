@@ -476,7 +476,7 @@ function tableau_liste_salarie_chef($id_chef) {
 function tableau_liste_salarie_chef_dashboard($id_chef) {
 
     $contenu = '';
-    
+
     $req = recup_salarie_selon_chef($id_chef);
 
     if($resultat = $req->rowCount()) {
@@ -593,7 +593,7 @@ function compte_salarie() {
 
 function compte_formation() {
 
-    $req = recup_formation();
+    $req = recup_formation_date();
 
     $resultat = $req->rowCount();
 
@@ -603,6 +603,15 @@ function compte_formation() {
 function compte_prestataire() {
 
     $req = recup_prestataire();
+
+    $resultat = $req->rowCount();
+
+    return $resultat;
+}
+
+function compte_formation_libelle($id_s, $libelle) {
+
+    $req = recup_formation_libelle($id_s, $libelle);
 
     $resultat = $req->rowCount();
 
@@ -696,9 +705,12 @@ function tableau_historique_dashbord($id_s) {
 
     while($resultat = $req->fetch()) {
 
+        $dateOriginal = $resultat['date_debut'];
+        $newDate = date("d/m/Y", strtotime($dateOriginal));
+        
         $contenu .= '<tr>
                         <td>'.$resultat['titre'].'</td>
-                        <td>'.$resultat['date_debut'].'</td>
+                        <td>'.$newDate.'</td>
                         <td>';
         if($resultat['libelle'] == "En attente") {
 
@@ -714,9 +726,35 @@ function tableau_historique_dashbord($id_s) {
 
             $contenu .= '<span class="indicator label-refuse"></span> Refusée';
         }
-        
+
         $contenu .= '</td>
                     <td>';
+
+    }
+
+    $contenu .= '';
+
+    return $contenu;
+}
+
+function tableau_derniere_formation_dashbord() {
+
+    $req = recup_derniere_formation_date();
+
+    $contenu = '';
+
+
+    while($resultat = $req->fetch()) {
+
+
+        $dateOriginal = $resultat['date_debut'];
+        $newDate = date("d/m/Y", strtotime($dateOriginal));
+        $newDateUrl = date("d-m-Y", strtotime($dateOriginal));
+
+        $contenu .= '<tr>
+                        <td>'.$resultat['titre'].'</td>
+                        <td>'.$newDate.'</td>
+                        <td><a href="'.BASE_URL.'/details-formation/'.$resultat['titre'].'/'.$newDateUrl.'"class="btn btn-primary">Afficher les détails</a></td>';
 
     }
 

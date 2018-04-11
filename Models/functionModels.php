@@ -75,6 +75,22 @@ function recup_formation_date() {
     return $req;
 }
 
+function recup_formation_libelle($id_s, $libelle) {
+    global $bdd;
+    
+    $req = $bdd->query('SELECT * FROM type_formation WHERE id_s ='.$id_s.' AND libelle = "'.$libelle.'"');
+    
+    return $req;
+}
+
+function recup_derniere_formation_date() {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM formation WHERE date_debut > CURDATE() AND nb_place >= 1 ORDER BY id_f DESC LIMIT 0, 5');
+
+    return $req;
+}
+
 function recup_formation_salarie($depart, $fin) {
     global $bdd;
 
