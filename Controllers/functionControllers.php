@@ -766,7 +766,31 @@ function tableau_derniere_formation_dashbord() {
         $contenu .= '<tr>
                         <td>'.$resultat['titre'].'</td>
                         <td>'.$newDate.'</td>
-                        <td><a href="'.BASE_URL.'/details-formation/'.$resultat['titre'].'/'.$newDateUrl.'"class="btn btn-primary">Afficher les détails</a></td>';
+                        <td><a href="'.BASE_URL.'/details-formation/'.$resultat['titre'].'/'.$newDateUrl.'"class="btn btn-primary">Afficher les détails</a></td>
+                    </tr>';
+
+    }
+
+    $contenu .= '';
+
+    return $contenu;
+}
+
+function tableau_dernier_salarie_dashbord() {
+
+    $req = recup_dernier_salarie_date();
+
+    $contenu = '';
+
+
+    while($resultat = $req->fetch()) {
+
+
+        $contenu .= '<tr>
+                        <td>'.$resultat['nom'].' '.$resultat['prenom'].'</td>
+                        <td>'.$resultat['email'].'</td>
+                        <td>'.$resultat['credits'].'</td>
+                    </tr>';
 
     }
 

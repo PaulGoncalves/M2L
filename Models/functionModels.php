@@ -136,6 +136,14 @@ function recup_tout_salarie() {
     return $req;
 }
 
+function recup_dernier_salarie_date() {
+    global $bdd;
+
+    $req = $bdd->query('SELECT * FROM salarie ORDER BY id_s DESC LIMIT 0, 7');
+
+    return $req;
+}
+
 function recup_formation_different_refusee() {
     global $bdd;
     
