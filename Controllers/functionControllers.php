@@ -660,10 +660,13 @@ function tableau_historique_salarie($id_s) {
     $contenu = '';
 
     while($resultat = $req->fetch()) {
+        
+        $dateActuel = $resultat['date_debut'];
+        $newDate = date('d/m/Y', strtotime($dateActuel));
 
         $contenu .= '<tr>
                         <td>'.$resultat['titre'].'</td>
-                        <td>'.$resultat['date_debut'].'</td>
+                        <td>'.$newDate.'</td>
                         <td>'.$resultat['nb_jour'].'</td>
                         <td>';
         if($resultat['libelle'] == "En attente") {
@@ -673,16 +676,25 @@ function tableau_historique_salarie($id_s) {
         }elseif($resultat['libelle'] == "Acceptée") {
 
             $contenu .= '<span class="indicator label-success"></span> Acceptée';
+            
         }elseif($resultat['libelle'] == "Effectuée") {
 
             $contenu .= '<span class="indicator label-effectue"></span> Effectuée';
+            
+        }elseif($resultat['libelle'] == "Refusée") {
+
+            $contenu .= '<span class="indicator label-refuse"></span> Refusée';
         }
         $contenu .= '</td>
                     <td>';
-        if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Acceptée' || $resultat['libelle'] == 'Refusée') {
+        if($resultat['libelle'] == 'En attente' || $resultat['libelle'] == 'Acceptée') {
 
             $contenu .= 'La facture n\'est pas encore disponible';
 
+        }elseif($resultat['libelle'] == 'Refusée') {
+            
+            $contenu .= 'Facture non disponible pour les formations refusées';
+            
         } else {
 
             $contenu .= '<a target="_banck" href="'.BASE_URL.'/Facture/'.$resultat['titre'].'/'.date('d-m-Y', strtotime($resultat['date_debut'])).'/'.$resultat['id_f'].'/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Imprimer le PDF</a>';
