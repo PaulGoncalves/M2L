@@ -2,6 +2,7 @@
     <div class="col-md-12">
         <br />
         <div class="panel panel-default articles">
+            <h4 align="center"><?php if(isset($messageFormation)) {echo $messageFormation;} ?></h4>
             <h3 class="titre_marge">Les prestataires disponible :</h3>
             <hr />
             <table class="table table-striped">

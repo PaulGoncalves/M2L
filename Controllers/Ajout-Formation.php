@@ -14,7 +14,7 @@ if(isset($_POST['validFormation'])) {
 
     if(!empty($titre) AND $nb_jour AND $dateDeb AND $nb_place AND $prestataire AND $contenu) {
 
-        if (preg_match("#^[a-zA-ZçéèêëùàîïöôËÄÖÜÊÂÔÛ ]{3,35}+$#", $titre)) {
+        if(preg_match("#^[a-zA-ZçéèêëùàîïöôËÄÖÜÊÂÔÛ ]{3,35}+$#", $titre)) {
 
             if(preg_match("#^[0-9]+$#", $nb_jour)) {
 
