@@ -59,7 +59,18 @@ function menu_lvl($lvl, $page) {
     } elseif($lvl == 3) {
 
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
-        if($page == 'Ajout-Formation') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Ajout-Formation"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Ajout de formations</a></li>';
+        if($page == 'Ajout-Formation' || $page == 'gestion-formation') { $contenu .= '<li class="active parent">'; } else { $contenu .= '<li class="parent">'; } $contenu .= '<a data-toggle="collapse" href="#sub-item-1">
+				<em class="fa fa-navicon"></em> Gestion formation <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li><a class="" href="'.BASE_URL.'/Ajout-Formation">
+						<span class="fa fa-arrow-right">&nbsp;</span> Ajout de formation
+					</a></li>
+					<li><a class="" href="'.BASE_URL.'/gestion-formation-admin">
+						<span class="fa fa-arrow-right">&nbsp;</span> Gestion des formations
+					</a></li>
+				</ul>
+			</li>';
         if($page == 'Ajout-Prestataire') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .=  '<a href="'.BASE_URL.'/Ajout-Prestataire"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Ajout de prestataires</a></li>';
         if($page == 'Ajout-Salarie') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Ajout-salarie"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Ajout de salarié</a></li>';
 

@@ -12,15 +12,15 @@ if(isset($_POST['validAjoutPanier'])) {
 
     if($resultatLibelle['libelle'] == 'En attente') {
 
-        $messageAjoutFormation = '<h4 style="color:red;">Vous ne pouvez pas ajouter cette formation car elle est en attente d\'acceptation</h4>';
+        $messageAjoutFormation = banniere_danger('Vous ne pouvez pas ajouter cette formation car elle est en attente d\'acceptation');
 
     }elseif($resultatLibelle['libelle'] == 'Acceptée') {
 
-        $messageAjoutFormation = '<h4 style="color:red;">Vous ne pouvez pas ajouter cette formation car elle vous a déjà été accepté</h4>';
+        $messageAjoutFormation = banniere_danger('Vous ne pouvez pas ajouter cette formation car elle vous a déjà été accepté');
 
     }elseif($resultatLibelle['libelle'] == 'Effectuée') {
 
-        $messageAjoutFormation = '<h4 style="color:red;">Vous ne pouvez pas ajouter cette formation car vous l\'avez déjà effectuée</h4>';
+        $messageAjoutFormation = banniere_danger('Vous ne pouvez pas ajouter cette formation car vous l\'avez déjà effectuée');
 
     } else {
 
@@ -34,22 +34,22 @@ if(isset($_POST['validAjoutPanier'])) {
                 $placeDispo = $_POST['nb_place'] - 1;
                 $_SESSION['credits'] = $_SESSION['credits'] - $_POST['nb_jour'];
                 update_place_formation($placeDispo, $_POST['id_f']);
-
+    
                 update_credit_salarie($_SESSION['id_s'], $_SESSION['credits']);
 
                 insert_libelle_formation('En attente', $_POST['id_f'], $_SESSION['id_s']);
 
 
-                $messageAjoutFormation = '<h4 style="color:green;">La demande de formation a bien été prise en compte, veuillez patienter le temps de son acceptation</h4>';
+                $messageAjoutFormation = banniere_succes('La demande de formation a bien été prise en compte, veuillez patienter le temps de son acceptation');
             } else {
 
-                $messageAjoutFormation = '<h4 style="color:red;">Vous n\'avez pas asser de crédits disponible pour cette formation</h4>';
+                $messageAjoutFormation = banniere_danger('Vous n\'avez pas asser de crédits disponible pour cette formation');
 
             }
 
         } else {
 
-            $messageAjoutFormation = '<h4 style="color:red;">Il n\'y a plus de place pour cette formation</h4>';
+            $messageAjoutFormation = banniere_danger('Il n\'y a plus de place pour cette formation');
 
         }
 
