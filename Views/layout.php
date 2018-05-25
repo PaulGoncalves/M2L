@@ -11,6 +11,7 @@ update_layout_credits($_SESSION['id_s']);
         <link href="<?= BASE_URL; ?>/Views/assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?= BASE_URL; ?>/Views/assets/css/datepicker3.css" rel="stylesheet">
         <link href="<?= BASE_URL; ?>/Views/assets/css/styles.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="<?= BASE_URL; ?>/Views/images/M2L-favicon.png" />
 
         <!--Custom Font-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">

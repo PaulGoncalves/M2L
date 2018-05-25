@@ -59,20 +59,45 @@ function menu_lvl($lvl, $page) {
     } elseif($lvl == 3) {
 
         if($page == 'accueil') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>';
-        if($page == 'Ajout-Formation' || $page == 'gestion-formation') { $contenu .= '<li class="active parent">'; } else { $contenu .= '<li class="parent">'; } $contenu .= '<a data-toggle="collapse" href="#sub-item-1">
-				<em class="fa fa-navicon"></em> Gestion formation <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+        if($page == 'Ajout-Formation' || $page == 'gestion-formation-admin') { $contenu .= '<li class="active parent">'; } else { $contenu .= '<li class="parent">'; } $contenu .= '<a data-toggle="collapse" href="#sub-item-1">
+				<span class="glyphicon glyphicon-list" aria-hidden="true"></span> Gestion formation <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					<li><a class="" href="'.BASE_URL.'/Ajout-Formation">
-						<span class="fa fa-arrow-right">&nbsp;</span> Ajout de formation
+						 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajout de formation
 					</a></li>
 					<li><a class="" href="'.BASE_URL.'/gestion-formation-admin">
-						<span class="fa fa-arrow-right">&nbsp;</span> Gestion des formations
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Gestion des formations
+					</a></li>
+                    <li><a class="" href="'.BASE_URL.'/formations">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Liste des formations
 					</a></li>
 				</ul>
 			</li>';
-        if($page == 'Ajout-Prestataire') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .=  '<a href="'.BASE_URL.'/Ajout-Prestataire"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Ajout de prestataires</a></li>';
-        if($page == 'Ajout-Salarie') { $contenu .= '<li class="active">'; } else { $contenu .= '<li>'; } $contenu .= '<a href="'.BASE_URL.'/Ajout-salarie"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Ajout de salarié</a></li>';
+        if($page == 'Ajout-Prestataire' || $page == 'gestion-prestataire') { $contenu .= '<li class="active parent">'; } else { $contenu .= '<li class="parent">'; } $contenu .= '<a data-toggle="collapse" href="#sub-item-2">
+				<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Gestion prestataire <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-2">
+					<li><a class="" href="'.BASE_URL.'/Ajout-Prestataire">
+						 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajout de prestataire
+					</a></li>
+					<li><a class="" href="'.BASE_URL.'/gestion-prestataire">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Gestion des prestataires
+					</a></li>
+				</ul>
+			</li>';
+        if($page == 'Ajout-Salarie' || $page == 'gestion-salarie') { $contenu .= '<li class="active parent">'; } else { $contenu .= '<li class="parent">'; } $contenu .= '<a data-toggle="collapse" href="#sub-item-3">
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Gestion salarié <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-3">
+					<li><a class="" href="'.BASE_URL.'/Ajout-salarie">
+						 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajout de salarié
+					</a></li>
+					<li><a class="" href="'.BASE_URL.'/gestion-salarie">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Gestion des salariés
+					</a></li>
+				</ul>
+			</li>';
 
     }
 

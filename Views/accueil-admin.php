@@ -61,7 +61,7 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li>
                                 <ul class="dropdown-settings">
-                                    <li><a href="<?= BASE_URL; ?>/Ajout-salarie">
+                                    <li><a href="<?= BASE_URL; ?>/gestion-salarie">
                                         <em class="fa fa-list"></em> Afficher tous les salariés
                                         </a>
                                     </li>
@@ -84,7 +84,7 @@
             <div class="panel-footer">
                 <div class="input-group">
                     <div>
-                        <a class="btn btn-primary" href="<?= BASE_URL; ?>/Ajout-salarie">Afficher tous les salariés</a>
+                        <a class="btn btn-primary" href="<?= BASE_URL; ?>/gestion-salarie">Afficher tous les salariés</a>
                     </div>
                 </div>
             </div>
