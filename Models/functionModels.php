@@ -366,10 +366,30 @@ function update_mdp_salarie($email, $mdp) {
     
 }
 
+function update_salarie($id_s, $nom, $prenom, $email, $credits) {
+    global $bdd;
+    
+    $req = $bdd->prepare('UPDATE salarie SET nom = :nom, prenom = :prenom, email = :email, credits = :credits WHERE id_s = '.$id_s);
+    $req->bindValue(':nom', $nom);
+    $req->bindValue(':prenom', $prenom);
+    $req->bindValue(':email', $email);
+    $req->bindValue(':credits', $credits);
+    $req->execute();
+    
+}
+
 function delete_formation($id_f) {
     global $bdd;
 
     $req = $bdd->prepare('DELETE FROM formation WHERE id_f = '.$id_f);
+    $req->execute();
+
+}
+
+function delete_user($id_s) {
+    global $bdd;
+
+    $req = $bdd->prepare('DELETE FROM salarie WHERE id_s = '.$id_s);
     $req->execute();
 
 }

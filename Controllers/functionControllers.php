@@ -434,6 +434,7 @@ function tableau_liste_salarie() {
             if($resultat['lvl'] == 1) { $contenu .= 'Salarié'; } elseif($resultat['lvl'] == 2) { $contenu .= 'Chef'; } elseif($resultat['lvl'] == 3) { $contenu .= 'Administrateur'; }
 
             $contenu .= '</td>
+                        <td><a class="btn btn-primary" href="'.BASE_URL.'/modification-utilisateur/'.$resultat['id_s'].'/'.$resultat['nom'].'-'.$resultat['prenom'].'">Modifier les infos</a></td>
                     </tr>';
 
         }

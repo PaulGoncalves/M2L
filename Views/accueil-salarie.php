@@ -62,7 +62,7 @@
                             <li>
                                 <ul class="dropdown-settings">
                                     <li><a href="<?= BASE_URL; ?>/historique-formation">
-                                        <em class="fa fa-list"></em> Toutes les formations
+                                        <em class="fa fa-list"></em> Historique de formations
                                         </a>
                                     </li>
                                 </ul>

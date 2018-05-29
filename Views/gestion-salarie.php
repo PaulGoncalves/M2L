@@ -14,6 +14,7 @@
                             <th>Email</th>
                             <th>Crédits</th>
                             <th>Statut</th>
+                            <th>Mise à jour des infos</th>
                         </tr>
                         <?php echo tableau_liste_salarie(); ?>
                     </table>

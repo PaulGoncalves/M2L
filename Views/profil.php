@@ -22,7 +22,7 @@
                         <label>Nom</label>
                         <input class="form-control" id="disabledInput" type="text" value="<?php echo $_SESSION['nom'] ?>" disabled/>
                         <br />
-                        <label>Pénom</label>
+                        <label>Prénom</label>
                         <input class="form-control" id="disabledInput" type="text" value="<?php echo $_SESSION['prenom'] ?>" disabled/>
                         <br />
                         <label>Email</label>
